@@ -2,6 +2,7 @@ package net.lustenauer.obstacleavoid.system.debug;
 
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import net.lustenauer.obstacleavoid.util.ViewportUtils;
 
@@ -11,6 +12,7 @@ import net.lustenauer.obstacleavoid.util.ViewportUtils;
  * @author Patric Hollenstein
  */
 public class GridRenderSystem extends EntitySystem {
+    private static final Logger log = new Logger(GridRenderSystem.class.getName(), Logger.DEBUG);
     /*
      * ATTRIBUTES
      */
@@ -31,6 +33,8 @@ public class GridRenderSystem extends EntitySystem {
      */
     @Override
     public void update(float deltaTime) {
+        log.debug("update");
+
         viewport.apply();
         ViewportUtils.drawGrid(viewport, renderer);
     }
