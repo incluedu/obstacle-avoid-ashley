@@ -21,6 +21,7 @@ public class EntityFactory {
         bounds.bounds.set(x, y, GameConfig.PLAYER_BOUNDS_RADIUS);
 
         Entity entity = engine.createEntity();
+        entity.add(bounds);
         engine.addEntity(entity);
     }
 }

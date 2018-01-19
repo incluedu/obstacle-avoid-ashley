@@ -11,8 +11,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import net.lustenauer.obstacleavoid.ObstacleAvoidGame;
 import net.lustenauer.obstacleavoid.common.EntityFactory;
 import net.lustenauer.obstacleavoid.config.GameConfig;
-import net.lustenauer.obstacleavoid.screen.menu.MenuScreen;
 import net.lustenauer.obstacleavoid.system.debug.DebugCameraSystem;
+import net.lustenauer.obstacleavoid.system.debug.DebugRenderSystem;
 import net.lustenauer.obstacleavoid.system.debug.GridRenderSystem;
 import net.lustenauer.obstacleavoid.util.GdxUtils;
 
@@ -48,6 +48,7 @@ public class GameScreen implements Screen {
 
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugCameraSystem(camera, GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y));
+        engine.addSystem(new DebugRenderSystem(viewport, renderer));
 
         factory.addPlayer();
     }
@@ -56,7 +57,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         GdxUtils.clearScreen();
         engine.update(delta);
-        log.debug("entities size= "+engine.getEntities().size());
+        log.debug("entities size= " + engine.getEntities().size());
     }
 
     @Override
