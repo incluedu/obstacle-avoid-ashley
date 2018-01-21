@@ -12,6 +12,7 @@ import net.lustenauer.obstacleavoid.ObstacleAvoidGame;
 import net.lustenauer.obstacleavoid.common.EntityFactory;
 import net.lustenauer.obstacleavoid.config.GameConfig;
 import net.lustenauer.obstacleavoid.system.*;
+import net.lustenauer.obstacleavoid.system.collision.CollisionSystem;
 import net.lustenauer.obstacleavoid.system.debug.DebugCameraSystem;
 import net.lustenauer.obstacleavoid.system.debug.DebugRenderSystem;
 import net.lustenauer.obstacleavoid.system.debug.GridRenderSystem;
@@ -55,6 +56,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new BoundsSystem());
         engine.addSystem(new ObstacleSpawnSystem(factory));
         engine.addSystem(new CleanUpSystem());
+        engine.addSystem(new CollisionSystem());
 
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugRenderSystem(viewport, renderer));
@@ -66,7 +68,6 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         GdxUtils.clearScreen();
         engine.update(delta);
-        log.debug("entities size= " + engine.getEntities().size());
     }
 
     @Override
