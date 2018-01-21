@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import net.lustenauer.obstacleavoid.component.BoundsComponent;
 import net.lustenauer.obstacleavoid.component.MovementComponent;
 import net.lustenauer.obstacleavoid.component.PlayerComponent;
+import net.lustenauer.obstacleavoid.component.PositionComponent;
 import net.lustenauer.obstacleavoid.config.GameConfig;
 
 public class EntityFactory {
@@ -19,6 +20,10 @@ public class EntityFactory {
         float x = GameConfig.WORLD_WIDTH / 2f;
         float y = GameConfig.PLAYER_SIZE;
 
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        position. x = x;
+        position.y = y;
+
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         bounds.bounds.set(x, y, GameConfig.PLAYER_BOUNDS_RADIUS);
 
@@ -27,10 +32,13 @@ public class EntityFactory {
         PlayerComponent player = engine.createComponent(PlayerComponent.class);
 
 
+
+
         Entity entity = engine.createEntity();
         entity.add(bounds);
         entity.add(movement);
         entity.add(player);
+        entity.add(position);
 
         engine.addEntity(entity);
     }

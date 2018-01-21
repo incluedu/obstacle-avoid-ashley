@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Logger;
 import net.lustenauer.obstacleavoid.common.Mappers;
-import net.lustenauer.obstacleavoid.component.BoundsComponent;
 import net.lustenauer.obstacleavoid.component.MovementComponent;
 import net.lustenauer.obstacleavoid.component.PlayerComponent;
 import net.lustenauer.obstacleavoid.config.GameConfig;
