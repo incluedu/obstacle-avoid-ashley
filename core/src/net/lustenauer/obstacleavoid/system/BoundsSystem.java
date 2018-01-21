@@ -3,9 +3,8 @@ package net.lustenauer.obstacleavoid.system;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.utils.Logger;
 import net.lustenauer.obstacleavoid.common.Mappers;
-import net.lustenauer.obstacleavoid.component.MovementComponent;
+import net.lustenauer.obstacleavoid.component.BoundsComponent;
 import net.lustenauer.obstacleavoid.component.PositionComponent;
 
 /**
@@ -13,26 +12,22 @@ import net.lustenauer.obstacleavoid.component.PositionComponent;
  *
  * @author Patric Hollenstein
  */
-public class MovementSystem extends IteratingSystem {
-    private static final Logger log = new Logger(MovementSystem.class.getName(), Logger.DEBUG);
+public class BoundsSystem extends IteratingSystem {
 
     private static final Family FAMILY = Family.all(
             PositionComponent.class,
-            MovementComponent.class
+            BoundsComponent.class
     ).get();
 
-    public MovementSystem() {
+    public BoundsSystem() {
         super(FAMILY);
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
+        BoundsComponent bounds = Mappers.BOUNDS.get(entity);
         PositionComponent position = Mappers.POSITION.get(entity);
-        MovementComponent movement = Mappers.MOVEMENT.get(entity);
-
-        position.x += movement.xSpeed;
-        position.y += movement.ySpeed;
-
-        log.debug("positionX= " + position.x + " positionY= " + position.y);
+        bounds.bounds.x = position.x;
+        bounds.bounds.y = position.y;
     }
 }

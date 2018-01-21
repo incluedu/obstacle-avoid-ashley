@@ -11,8 +11,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import net.lustenauer.obstacleavoid.ObstacleAvoidGame;
 import net.lustenauer.obstacleavoid.common.EntityFactory;
 import net.lustenauer.obstacleavoid.config.GameConfig;
+import net.lustenauer.obstacleavoid.system.BoundsSystem;
 import net.lustenauer.obstacleavoid.system.MovementSystem;
 import net.lustenauer.obstacleavoid.system.PlayerSystem;
+import net.lustenauer.obstacleavoid.system.WordWarapSystem;
 import net.lustenauer.obstacleavoid.system.debug.DebugCameraSystem;
 import net.lustenauer.obstacleavoid.system.debug.DebugRenderSystem;
 import net.lustenauer.obstacleavoid.system.debug.GridRenderSystem;
@@ -48,11 +50,15 @@ public class GameScreen implements Screen {
         engine = new PooledEngine();
         factory = new EntityFactory(engine);
 
-        engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugCameraSystem(camera, GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y));
-        engine.addSystem(new DebugRenderSystem(viewport, renderer));
+
         engine.addSystem(new PlayerSystem());
         engine.addSystem(new MovementSystem());
+        engine.addSystem(new WordWarapSystem(viewport));
+        engine.addSystem(new BoundsSystem());
+
+        engine.addSystem(new GridRenderSystem(viewport, renderer));
+        engine.addSystem(new DebugRenderSystem(viewport, renderer));
 
         factory.addPlayer();
     }

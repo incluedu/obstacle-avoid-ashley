@@ -2,10 +2,7 @@ package net.lustenauer.obstacleavoid.common;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
-import net.lustenauer.obstacleavoid.component.BoundsComponent;
-import net.lustenauer.obstacleavoid.component.MovementComponent;
-import net.lustenauer.obstacleavoid.component.PlayerComponent;
-import net.lustenauer.obstacleavoid.component.PositionComponent;
+import net.lustenauer.obstacleavoid.component.*;
 import net.lustenauer.obstacleavoid.config.GameConfig;
 
 public class EntityFactory {
@@ -31,7 +28,7 @@ public class EntityFactory {
 
         PlayerComponent player = engine.createComponent(PlayerComponent.class);
 
-
+        WorldWrapComponent worldWarp = engine.createComponent(WorldWrapComponent.class);
 
 
         Entity entity = engine.createEntity();
@@ -39,6 +36,7 @@ public class EntityFactory {
         entity.add(movement);
         entity.add(player);
         entity.add(position);
+        entity.add(worldWarp);
 
         engine.addEntity(entity);
     }

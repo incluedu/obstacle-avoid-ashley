@@ -34,7 +34,6 @@ public class PlayerSystem extends IteratingSystem {
         MovementComponent movement = Mappers.MOVEMENT.get(entity);
 
         movement.xSpeed = 0;
-
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             movement.xSpeed = GameConfig.MAX_PLAYER_X_SPEED;
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
