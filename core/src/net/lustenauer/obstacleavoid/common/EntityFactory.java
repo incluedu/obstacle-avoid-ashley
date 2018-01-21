@@ -53,10 +53,13 @@ public class EntityFactory {
         position.x = x;
         position.y = y;
 
+        CleanUpComponent cleanUp = engine.createComponent(CleanUpComponent.class);
+
         Entity entity = engine.createEntity();
         entity.add(bounds);
         entity.add(movement);
         entity.add(position);
+        entity.add(cleanUp);
 
         engine.addEntity(entity);
     }

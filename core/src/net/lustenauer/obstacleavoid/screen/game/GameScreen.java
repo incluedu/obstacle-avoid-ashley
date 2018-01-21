@@ -54,6 +54,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new WordWarapSystem(viewport));
         engine.addSystem(new BoundsSystem());
         engine.addSystem(new ObstacleSpawnSystem(factory));
+        engine.addSystem(new CleanUpSystem());
 
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugRenderSystem(viewport, renderer));

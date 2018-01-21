@@ -5,15 +5,12 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import net.lustenauer.obstacleavoid.common.Mappers;
 import net.lustenauer.obstacleavoid.component.BoundsComponent;
 
 
 public class DebugRenderSystem extends IteratingSystem {
-    private static final Logger log = new Logger(DebugRenderSystem.class.getName(), Logger.DEBUG);
-
     private static final Family FAMILY = Family.all(BoundsComponent.class).get();
 
 
@@ -28,7 +25,6 @@ public class DebugRenderSystem extends IteratingSystem {
 
     @Override
     public void update(float deltaTime) {
-        log.debug("update()");
         Color oldColor = renderer.getColor().cpy();
 
         viewport.apply();
@@ -44,8 +40,6 @@ public class DebugRenderSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        log.debug("processEntity= " + entity);
-
         BoundsComponent bc = Mappers.BOUNDS.get(entity);
         renderer.circle(bc.bounds.x, bc.bounds.y, bc.bounds.radius,30);
     }

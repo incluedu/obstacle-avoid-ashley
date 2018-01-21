@@ -17,8 +17,6 @@ import net.lustenauer.obstacleavoid.config.GameConfig;
  * @author Patric Hollenstein
  */
 public class PlayerSystem extends IteratingSystem {
-    private static final Logger log = new Logger(PlayerSystem.class.getName(), Logger.DEBUG);
-
     private static final Family FAMILY = Family.all(
             PlayerComponent.class,
             MovementComponent.class

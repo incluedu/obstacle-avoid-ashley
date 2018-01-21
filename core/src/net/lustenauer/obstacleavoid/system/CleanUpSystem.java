@@ -3,33 +3,32 @@ package net.lustenauer.obstacleavoid.system;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.utils.Logger;
 import net.lustenauer.obstacleavoid.common.Mappers;
-import net.lustenauer.obstacleavoid.component.MovementComponent;
+import net.lustenauer.obstacleavoid.component.CleanUpComponent;
 import net.lustenauer.obstacleavoid.component.PositionComponent;
+import net.lustenauer.obstacleavoid.config.GameConfig;
 
 /**
  * Created by Patric Hollenstein on 21.01.18.
  *
  * @author Patric Hollenstein
  */
-public class MovementSystem extends IteratingSystem {
-
+public class CleanUpSystem extends IteratingSystem {
     private static final Family FAMILY = Family.all(
-            PositionComponent.class,
-            MovementComponent.class
+            CleanUpComponent.class,
+            PositionComponent.class
     ).get();
 
-    public MovementSystem() {
+    public CleanUpSystem() {
         super(FAMILY);
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         PositionComponent position = Mappers.POSITION.get(entity);
-        MovementComponent movement = Mappers.MOVEMENT.get(entity);
 
-        position.x += movement.xSpeed;
-        position.y += movement.ySpeed;
+        if (position.y < -GameConfig.OBSTACLE_SIZE) {
+            getEngine().removeEntity(entity);
+        }
     }
 }
