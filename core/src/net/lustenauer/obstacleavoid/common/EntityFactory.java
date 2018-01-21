@@ -17,16 +17,16 @@ public class EntityFactory {
         float x = GameConfig.WORLD_WIDTH / 2f;
         float y = GameConfig.PLAYER_SIZE;
 
-        PositionComponent position = engine.createComponent(PositionComponent.class);
-        position. x = x;
-        position.y = y;
-
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         bounds.bounds.set(x, y, GameConfig.PLAYER_BOUNDS_RADIUS);
 
         MovementComponent movement = engine.createComponent(MovementComponent.class);
 
         PlayerComponent player = engine.createComponent(PlayerComponent.class);
+
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        position.x = x;
+        position.y = y;
 
         WorldWrapComponent worldWarp = engine.createComponent(WorldWrapComponent.class);
 
@@ -37,6 +37,26 @@ public class EntityFactory {
         entity.add(player);
         entity.add(position);
         entity.add(worldWarp);
+
+        engine.addEntity(entity);
+    }
+
+    public void addObstacle(float x, float y) {
+
+        BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        bounds.bounds.set(x, y, GameConfig.OBSTACLE_BOUNDS_RADIUS);
+
+        MovementComponent movement = engine.createComponent(MovementComponent.class);
+        movement.ySpeed = -GameManager.INSTANCE.getDifficultyLevel().getObstacleSpeed();
+
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        position.x = x;
+        position.y = y;
+
+        Entity entity = engine.createEntity();
+        entity.add(bounds);
+        entity.add(movement);
+        entity.add(position);
 
         engine.addEntity(entity);
     }
