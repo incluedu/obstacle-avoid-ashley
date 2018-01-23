@@ -20,6 +20,7 @@ public class HudRenderSystem extends EntitySystem {
     private final BitmapFont font;
 
     private final GlyphLayout layout = new GlyphLayout();
+    private int displayScore;
 
     public HudRenderSystem(Viewport viewport, SpriteBatch batch, BitmapFont font) {
         this.viewport = viewport;
@@ -33,16 +34,22 @@ public class HudRenderSystem extends EntitySystem {
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         batch.setColor(Color.WHITE);
-        draw();
+        draw(deltaTime);
         batch.end();
     }
 
-    private void draw() {
+    private void draw(float deltaTime) {
         String liveString = "LIVES: " + GameManager.INSTANCE.getLives();
         layout.setText(font, liveString);
         font.draw(batch, liveString, 20, GameConfig.HUD_HEIGHT - layout.height);
 
-        String scoreString = "SCORE: " + GameManager.INSTANCE.getScore();
+
+        int score = GameManager.INSTANCE.getScore();
+        if (displayScore < score) {
+            displayScore = Math.min(score, displayScore + (int) (60 * deltaTime));
+        }
+
+        String scoreString = "SCORE: " + displayScore;
         layout.setText(font, scoreString);
         font.draw(batch, scoreString, GameConfig.HUD_WIDTH - layout.width - 20,
                 GameConfig.HUD_HEIGHT - layout.height);
