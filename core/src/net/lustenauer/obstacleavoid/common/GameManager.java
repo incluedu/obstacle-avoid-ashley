@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import net.lustenauer.obstacleavoid.ObstacleAvoidGame;
 import net.lustenauer.obstacleavoid.config.DifficultyLevel;
+import net.lustenauer.obstacleavoid.config.GameConfig;
 
 /**
  * Created by Patric Hollenstein on 14.01.18.
@@ -21,6 +22,8 @@ public class GameManager {
 
     private int highscore;
     private DifficultyLevel difficultyLevel = DifficultyLevel.MEDIUM;
+    private int lives = GameConfig.LIVES_START;
+    private int score;
 
     private GameManager() {
         PREFS = Gdx.app.getPreferences(ObstacleAvoidGame.class.getSimpleName());
@@ -29,7 +32,7 @@ public class GameManager {
         difficultyLevel = DifficultyLevel.valueOf(difficultyName);
     }
 
-    public void updateHighScore(int score) {
+    public void updateHighScore() {
         if (score < highscore) {
             return;
         }
@@ -53,5 +56,30 @@ public class GameManager {
 
     public DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void decrementLives() {
+        lives--;
+    }
+
+    public boolean isGameOver() {
+        return lives <= 0;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void updateScore(int amount) {
+        score += amount;
+    }
+
+    public void reset() {
+        lives = GameConfig.LIVES_START;
+        score = 0;
     }
 }
