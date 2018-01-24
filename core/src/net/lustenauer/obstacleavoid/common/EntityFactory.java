@@ -23,7 +23,7 @@ public class EntityFactory {
     }
 
     public void addPlayer() {
-        float x = GameConfig.WORLD_WIDTH / 2f;
+        float x = (GameConfig.WORLD_WIDTH - GameConfig.PLAYER_SIZE) / 2f;
         float y = GameConfig.PLAYER_SIZE;
 
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);

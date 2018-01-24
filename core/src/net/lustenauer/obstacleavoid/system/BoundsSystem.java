@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import net.lustenauer.obstacleavoid.common.Mappers;
 import net.lustenauer.obstacleavoid.component.BoundsComponent;
+import net.lustenauer.obstacleavoid.component.DimensionComponent;
 import net.lustenauer.obstacleavoid.component.PositionComponent;
 
 /**
@@ -16,7 +17,8 @@ public class BoundsSystem extends IteratingSystem {
 
     private static final Family FAMILY = Family.all(
             PositionComponent.class,
-            BoundsComponent.class
+            BoundsComponent.class,
+            DimensionComponent.class
     ).get();
 
     public BoundsSystem() {
@@ -27,7 +29,8 @@ public class BoundsSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         BoundsComponent bounds = Mappers.BOUNDS.get(entity);
         PositionComponent position = Mappers.POSITION.get(entity);
-        bounds.bounds.x = position.x;
-        bounds.bounds.y = position.y;
+        DimensionComponent dimension = Mappers.DIMENSION.get(entity);
+        bounds.bounds.x = position.x + dimension.width / 2f;
+        bounds.bounds.y = position.y + dimension.height / 2f;
     }
 }

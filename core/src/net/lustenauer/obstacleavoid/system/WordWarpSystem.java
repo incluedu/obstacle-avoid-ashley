@@ -6,6 +6,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import net.lustenauer.obstacleavoid.common.Mappers;
+import net.lustenauer.obstacleavoid.component.DimensionComponent;
 import net.lustenauer.obstacleavoid.component.PositionComponent;
 import net.lustenauer.obstacleavoid.component.WorldWrapComponent;
 
@@ -14,15 +15,16 @@ import net.lustenauer.obstacleavoid.component.WorldWrapComponent;
  *
  * @author Patric Hollenstein
  */
-public class WordWarapSystem extends IteratingSystem {
+public class WordWarpSystem extends IteratingSystem {
     private static final Family FAMILY = Family.all(
             WorldWrapComponent.class,
-            PositionComponent.class
+            PositionComponent.class,
+            DimensionComponent.class
     ).get();
 
     private final Viewport viewport;
 
-    public WordWarapSystem(Viewport viewport) {
+    public WordWarpSystem(Viewport viewport) {
         super(FAMILY);
         this.viewport = viewport;
     }
@@ -31,10 +33,10 @@ public class WordWarapSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
 
-        PositionComponent postion = Mappers.POSITION.get(entity);
-        WorldWrapComponent worldWarp = Mappers.WORLD_WRAP.get(entity);
+        PositionComponent position = Mappers.POSITION.get(entity);
+        DimensionComponent dimension = Mappers.DIMENSION.get(entity);
 
-        postion.x = MathUtils.clamp(postion.x, 0, viewport.getWorldWidth());
-        postion.y = MathUtils.clamp(postion.y, 0, viewport.getWorldHeight());
+        position.x = MathUtils.clamp(position.x, 0, viewport.getWorldWidth() - dimension.width);
+        position.y = MathUtils.clamp(position.y, 0, viewport.getWorldHeight() - dimension.height);
     }
 }
