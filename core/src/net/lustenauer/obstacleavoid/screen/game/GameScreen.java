@@ -56,7 +56,7 @@ public class GameScreen implements Screen {
         hudViewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT);
         renderer = new ShapeRenderer();
         engine = new PooledEngine();
-        factory = new EntityFactory(engine);
+        factory = new EntityFactory(engine, assetManager);
 
         BitmapFont font = assetManager.get(AssetDescriptors.FONT);
         hit = assetManager.get(AssetDescriptors.HIT_SOUND);
@@ -90,6 +90,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new CollisionSystem(listener));
         engine.addSystem(new ScoreSystem());
 
+        engine.addSystem(new RenderSystem(viewport, batch));
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugRenderSystem(viewport, renderer));
 
@@ -109,6 +110,7 @@ public class GameScreen implements Screen {
     }
 
     private void addEntities() {
+        factory.addBackground();
         factory.addPlayer();
     }
 
