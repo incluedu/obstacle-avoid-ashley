@@ -11,13 +11,13 @@ public class Mappers {
 
     public static final ComponentMapper<PositionComponent> POSITION = ComponentMapper.getFor(PositionComponent.class);
 
-    public static final ComponentMapper<WorldWrapComponent> WORLD_WRAP = ComponentMapper.getFor(WorldWrapComponent.class);
-
     public static final ComponentMapper<ObstacleComponent> OBSTACLE = ComponentMapper.getFor(ObstacleComponent.class);
 
     public static final ComponentMapper<TextureComponent> TEXTURE = ComponentMapper.getFor(TextureComponent.class);
 
     public static final ComponentMapper<DimensionComponent> DIMENSION = ComponentMapper.getFor(DimensionComponent.class);
+
+    public static final ComponentMapper<CollectibleComponent> COLLECTIBLE = ComponentMapper.getFor(CollectibleComponent.class);
 
     private Mappers() {
     }

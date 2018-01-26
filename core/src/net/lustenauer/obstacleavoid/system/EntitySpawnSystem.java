@@ -10,11 +10,12 @@ import net.lustenauer.obstacleavoid.config.GameConfig;
  *
  * @author Patric Hollenstein
  */
-public class ObstacleSpawnSystem extends IntervalSystem {
+public class EntitySpawnSystem extends IntervalSystem {
 
     private final EntityFactory factory;
+    private int collectibleCounter;
 
-    public ObstacleSpawnSystem(EntityFactory factory) {
+    public EntitySpawnSystem(EntityFactory factory) {
         super(GameConfig.OBSTACLE_SPAWN_TIME);
         this.factory = factory;
     }
@@ -24,10 +25,15 @@ public class ObstacleSpawnSystem extends IntervalSystem {
         float min = 0;
         float max = GameConfig.WORLD_WIDTH - GameConfig.OBSTACLE_SIZE;
 
-        float obstacleX = MathUtils.random(min, max);
-        float obstacleY = GameConfig.WORLD_HEIGHT;
+        float x = MathUtils.random(min, max);
+        float y = GameConfig.WORLD_HEIGHT;
 
-        factory.addObstacle(obstacleX, obstacleY);
-
+        if (collectibleCounter > 30) {
+            collectibleCounter = MathUtils.random(0,20);
+            factory.addCollectible(x, y);
+        } else {
+            collectibleCounter++;
+            factory.addObstacle(x, y);
+        }
     }
 }

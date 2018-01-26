@@ -38,6 +38,9 @@ public class GameConfig {
     public static final float OBSTACLE_SIZE = 2 * OBSTACLE_BOUNDS_RADIUS;
 
 
+    public static final float COLLECTIBLE_BOUNDS_RADIUS = 0.3f; // world units
+    public static final float COLLECTIBLE_SIZE = 2 * COLLECTIBLE_BOUNDS_RADIUS;
+
     private GameConfig() {
     }
 }

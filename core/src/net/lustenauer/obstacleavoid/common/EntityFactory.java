@@ -1,5 +1,6 @@
 package net.lustenauer.obstacleavoid.common;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.assets.AssetManager;
@@ -95,8 +96,6 @@ public class EntityFactory {
     }
 
     public void addBackground() {
-
-
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         texture.region = gamePlayAtlas.findRegion(RegionNames.BACKGROUND);
 
@@ -114,5 +113,41 @@ public class EntityFactory {
         entity.add(dimension);
 
         engine.addEntity(entity);
+    }
+
+    public void addCollectible(float x, float y) {
+        BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        bounds.bounds.set(x, y, GameConfig.COLLECTIBLE_BOUNDS_RADIUS);
+
+        MovementComponent movement = engine.createComponent(MovementComponent.class);
+        movement.ySpeed = -GameManager.INSTANCE.getDifficultyLevel().getObstacleSpeed();
+
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        position.x = x;
+        position.y = y;
+
+        CleanUpComponent cleanUp = engine.createComponent(CleanUpComponent.class);
+
+        CollectibleComponent collectible = engine.createComponent(CollectibleComponent.class);
+
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        texture.region = gamePlayAtlas.findRegion(RegionNames.ONE_UP);
+
+        DimensionComponent dimension = engine.createComponent(DimensionComponent.class);
+        dimension.width = GameConfig.COLLECTIBLE_SIZE;
+        dimension.height = GameConfig.COLLECTIBLE_SIZE;
+
+
+        Entity entity = engine.createEntity();
+        entity.add(bounds);
+        entity.add(movement);
+        entity.add(position);
+        entity.add(cleanUp);
+        entity.add(collectible);
+        entity.add(texture);
+        entity.add(dimension);
+
+        engine.addEntity(entity);
+
     }
 }

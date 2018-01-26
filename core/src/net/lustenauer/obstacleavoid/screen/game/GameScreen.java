@@ -1,5 +1,6 @@
 package net.lustenauer.obstacleavoid.screen.game;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -76,7 +77,13 @@ public class GameScreen implements Screen {
                     engine.removeAllEntities();
                     addEntities();
                 }
+            }
 
+            @Override
+            public void hitCollectible(Entity collectibleEntity) {
+                GameManager.INSTANCE.increaseLives();
+                hit.play();
+                engine.removeEntity(collectibleEntity);
             }
         };
 
@@ -84,7 +91,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new MovementSystem());
         engine.addSystem(new WordWarpSystem(viewport));
         engine.addSystem(new BoundsSystem());
-        engine.addSystem(new ObstacleSpawnSystem(factory));
+        engine.addSystem(new EntitySpawnSystem(factory));
         engine.addSystem(new CleanUpSystem());
         engine.addSystem(new CollisionSystem(listener));
         engine.addSystem(new ScoreSystem());
